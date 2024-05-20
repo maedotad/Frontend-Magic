@@ -1,0 +1,47 @@
+// Dummy array to store books (in real application, you'd use a database)
+let books = [];
+
+// Function to display books
+function displayBooks() {
+    const bookList = document.getElementById('book-list');
+    bookList.innerHTML = '';
+
+    books.forEach(function(book) {
+        const div = document.createElement('div');
+        div.className = 'book';
+        div.innerHTML = `
+            <h3>${book.title}</h3>
+            <p><strong>Author:</strong> ${book.author}</p>
+            <p><strong>ISBN:</strong> ${book.isbn}</p>
+        `;
+        bookList.appendChild(div);
+    });
+}
+
+// Function to add a new book
+function addBook(e) {
+    e.preventDefault();
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const isbn = document.getElementById('isbn').value;
+
+    const book = {
+        title: title,
+        author: author,
+        isbn: isbn
+    };
+
+    books.push(book);
+    displayBooks();
+
+    // Clear input fields after adding a book
+    document.getElementById('title').value = '';
+    document.getElementById('author').value = '';
+    document.getElementById('isbn').value = '';
+}
+
+// Event listener for submitting the book form
+document.getElementById('book-form').addEventListener('submit', addBook);
+
+// Initial display of books
+displayBooks();
